@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+        
+  <script src="resources/sap-ui-core.js"
+    id="sap-ui-bootstrap"
+    data-sap-ui-libs="sap.ui.commons,sap.m"
+    data-sap-ui-theme="sap_bluecrystal">
+  </script>
+  <!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
+
+  <script>
+   
+  var App = new sap.m.App({ id:"App"});  
+  App.placeAt("content");   
+    
+  var Page = new sap.m.Page({title:"Home",id:"Page",enableScrolling: false});  
+  //App.addPage(Page);  
+  
+    
+  var oContainer = new sap.m.TileContainer({});  
+  Page.addContent(oContainer);  
+    
+  var T1 = new sap.m.StandardTile({title:"Patient Management", number:"1"});  
+  oContainer.addTile(T1);   
+  var T2 = new sap.m.StandardTile({title:"Ward Management",number: "2"});  
+  oContainer.addTile(T2);  
+  var T3 = new sap.m.StandardTile({title:"Doctor Diagnosys", number: "3"});  
+  oContainer.addTile(T3); 
+        var T4 = new sap.m.StandardTile({title:"Account",number: "4"});  
+  oContainer.addTile(T4);
+  T1.attachPress(function(){
+   
+   App.to("pm");
+  });
+  T2.attachPress(function(){
+   
+   App.to("wm");
+  });
+  T3.attachPress(function(){
+   
+   App.to("dd");
+  });
+  T4.attachPress(function(){
+  
+   App.to("acc");
+  });
+  var T5 = new sap.m.StandardTile({title:"In Patient",number:"5"});  
+  oContainer.addTile(T5);
+  var T6 = new sap.m.StandardTile({title:"Out Patient",number: "6"});  
+  oContainer.addTile(T6);
+  
+  var T7 = new sap.m.StandardTile({title:"General",number:"7"});  
+  oContainer.addTile(T7);
+  var T8 = new sap.m.StandardTile({title:"ICU",number: "8"});  
+  oContainer.addTile(T8);
+  
+  var page2 = new sap.m.Page("pm", {
+         title: "Patient Management",
+         showNavButton: true, // page 2 should display a back button
+         navButtonPress: function () {
+             App.back(); // when pressed, the back button should navigate back up to page 1
+         },
+         content: [T5,T6]
+     });
+  var page3 = new sap.m.Page("wm", {
+         title: "Ward Management",
+         showNavButton: true, // page 2 should display a back button
+         navButtonPress: function () {
+             App.back(); // when pressed, the back button should navigate back up to page 1
+         },
+         content: [T7,T8]
+     });
+  
+  // Create the ListBox
+  var oSimpleListBox = new sap.ui.commons.ListBox({
+   items : [
+      new sap.ui.core.ListItem({text : 'doc name'}),
+     new sap.ui.core.ListItem({text : 'patient name'}),
+     new sap.ui.core.ListItem({text : 'xyz'}),
+     new sap.ui.core.ListItem({text : 'abc'})
+    ],
+    select : function(e) {
+     var a=["You selected : "];
+     jQuery.each(oSimpleListBox.getSelectedItems(), function(idx,item) { a.push(item.getText(), "");});
+     oTextSummary.setText(a.join(""));
+    }
+  });
+  var oTextSummary = new sap.ui.commons.TextView();
+  
+  var page4 = new sap.m.Page("dd", {
+         title: "Doctor",
+         showNavButton: true, // page 2 should display a back button
+         navButtonPress: function () {
+             App.back(); // when pressed, the back button should navigate back up to page 1
+         },
+         content: [oSimpleListBox,oTextSummary]
+     });
+  App.addPage(Page).addPage(page2).addPage(page3).addPage(page4);
+  //App.addPage(page2);
+
+  </script>
+
+ </head>
+ <body class="sapUiBody" role="application">
+  <div id="content"></div>
+ </body>
+</html>
